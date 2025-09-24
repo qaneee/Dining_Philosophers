@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_sim.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 17:53:10 by arvardan          #+#    #+#             */
+/*   Updated: 2025/09/24 19:25:42 by arvardan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static void	eating(t_philo *ph)
@@ -41,10 +53,8 @@ void	*routine(void *data)
 	philo = (t_philo *)data;
 	spinlock(philo->table);
 	set_long(&philo->philo_mutex, &philo->last_meal_time, real_time());
-	increase_count(
-		&philo->table->table_mutex, 
-		&philo->table->running_thread_count
-	);
+	increase_count(&philo->table->table_mutex,
+		&philo->table->running_thread_count);
 	sync_philos(philo);
 	while (!sim_finished(philo->table))
 	{
@@ -57,14 +67,15 @@ void	*routine(void *data)
 	}
 	return (NULL);
 }
+
 static void	create_threads(t_table *t)
 {
-    int	i;
+	int	i;
 
 	if (t->philo_count == 1)
 	{
 		pthread_create(&t->monitor, NULL, monitoring, t);
-		pthread_create(&t->philos[0].thread_id, NULL, 
+		pthread_create(&t->philos[0].thread_id, NULL,
 			one_philo, &t->philos[0]);
 	}
 	else
@@ -72,7 +83,7 @@ static void	create_threads(t_table *t)
 		i = 0;
 		while (i < t->philo_count)
 		{
-			pthread_create(&t->philos[i].thread_id, NULL, 
+			pthread_create(&t->philos[i].thread_id, NULL,
 				routine, &t->philos[i]);
 			i++;
 		}
@@ -82,15 +93,15 @@ static void	create_threads(t_table *t)
 
 void	start_dinner(t_table *t)
 {
-    int	i;
+	int	i;
 
 	if (t->must_eat == 0)
-		return;
+		return ;
 	t->start_sim = real_time();
 	i = 0;
 	while (i < t->philo_count)
 	{
-		set_long(&t->philos[i].philo_mutex, 
+		set_long(&t->philos[i].philo_mutex,
 			&t->philos[i].last_meal_time, t->start_sim);
 		i++;
 	}

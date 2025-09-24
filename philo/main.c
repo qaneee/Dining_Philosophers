@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 17:52:15 by arvardan          #+#    #+#             */
+/*   Updated: 2025/09/24 18:09:13 by arvardan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static void	parse_input(t_table *t, char **argv, int argc)
@@ -11,6 +23,7 @@ static void	parse_input(t_table *t, char **argv, int argc)
 	else
 		t->must_eat = -1;
 }
+
 static void	validate_input(int argc, char **arr)
 {
 	int	i;

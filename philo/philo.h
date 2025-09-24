@@ -1,27 +1,32 @@
-# ifndef PHILO_H
-#define PHILO_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 17:52:54 by arvardan          #+#    #+#             */
+/*   Updated: 2025/09/24 19:42:33 by arvardan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#define COLOR_THINKING "\033[38;2;173;216;230m"
-#define COLOR_EATING   "\033[38;2;144;238;144m"
-#define COLOR_SLEEPING "\033[38;2;255;248;220m"
-#define COLOR_FORK     "\033[38;2;222;184;135m"
-#define COLOR_DEAD     "\033[38;2;220;20;60m"
-#define COLOR_RESET    "\033[0m"
+#ifndef PHILO_H
+# define PHILO_H
 
-#define T_MSG COLOR_THINKING "is thinking" COLOR_RESET
-#define E_MSG COLOR_EATING   "is eating"   COLOR_RESET
-#define S_MSG COLOR_SLEEPING "is sleeping" COLOR_RESET
-#define F_MSG COLOR_FORK     "has taken a fork" COLOR_RESET
-#define D_MSG COLOR_DEAD     "died"        COLOR_RESET
+# include <stdio.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <string.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <stdbool.h>
 
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/time.h>
-#include <pthread.h>
-#include <string.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <stdbool.h>
+# define T_MSG "\033[38;2;173;216;230mis thinking\033[0m"
+# define E_MSG "\033[38;2;144;238;144mis eating\033[0m"
+# define S_MSG "\033[38;2;255;248;220mis sleeping\033[0m"
+# define F_MSG "\033[38;2;222;184;135mhas taken a fork\033[0m"
+# define D_MSG "\033[38;2;220;20;60mdied\033[0m"
 
 typedef struct s_table	t_table;
 typedef struct s_philo	t_philo;
@@ -35,7 +40,7 @@ typedef enum e_philo_state
 	TAKING_F_FORK,
 	TAKING_S_FORK,
 	DIED,
-} t_philo_state;
+}	t_philo_state;
 
 typedef struct s_fork
 {
@@ -43,9 +48,9 @@ typedef struct s_fork
 	int				fork_id;
 }	t_fork;
 
-typedef struct	s_table
+typedef struct s_table
 {
-    int					philo_count;
+	int					philo_count;
 	long				time_to_die;
 	long				time_to_eat;
 	long				time_to_sleep;	
@@ -58,7 +63,7 @@ typedef struct	s_table
 	pthread_mutex_t		table_mutex;
 	pthread_mutex_t		write_mutex;
 	t_fork				*forks;
-	t_philo				*philos;		 
+	t_philo				*philos;
 }	t_table;
 
 typedef struct s_philo

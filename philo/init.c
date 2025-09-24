@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 17:52:07 by arvardan          #+#    #+#             */
+/*   Updated: 2025/09/24 18:07:07 by arvardan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static void	set_forks(t_philo *philo, t_fork *forks, int philo_pos)
@@ -44,7 +56,7 @@ void	init_all(t_table *t)
 	t->running_thread_count = 0;
 	pthread_mutex_init(&t->table_mutex, NULL);
 	pthread_mutex_init(&t->write_mutex, NULL);
-	t->philos = malloc(sizeof(t_philo)* t->philo_count);
+	t->philos = malloc(sizeof(t_philo) * t->philo_count);
 	if (!t->philos)
 		return ;
 	t->forks = malloc(sizeof(t_fork) * t->philo_count);

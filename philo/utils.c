@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 17:53:24 by arvardan          #+#    #+#             */
+/*   Updated: 2025/09/24 19:29:54 by arvardan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 unsigned long long	real_time(void)
 {
-    struct timeval	tv;
-    
+	struct timeval	tv;
+
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
+
 void	write_state(t_philo_state s, t_philo *ph)
 {
 	t_table				*t;
@@ -24,9 +37,9 @@ void	write_state(t_philo_state s, t_philo *ph)
 	else if (s == THINKING && !sim_finished(t))
 		printf("[%lld] %d %s\n", t_passed, ph->philo_id, T_MSG);
 	else if (s == SLEEPING && !sim_finished(t))
-	printf("[%lld] %d %s\n", t_passed, ph->philo_id, S_MSG);
+		printf("[%lld] %d %s\n", t_passed, ph->philo_id, S_MSG);
 	else if (s == DIED)
-	printf("[%lld] %d %s\n", t_passed, ph->philo_id, D_MSG);
+		printf("[%lld] %d %s\n", t_passed, ph->philo_id, D_MSG);
 	pthread_mutex_unlock(&t->write_mutex);
 }
 
@@ -39,7 +52,7 @@ void	ft_usleep(long usec, t_table *table)
 	assign = (unsigned long long)usec;
 	while (!sim_finished(table) && (real_time() - start) < assign)
 	{
-		usleep(100);   //maybe add philo_dead() and return ; without usleep() ???
+		usleep(100);
 	}
 }
 
@@ -60,6 +73,7 @@ void	free_all(t_table *t)
 	free(t->forks);
 	free(t->philos);
 }
+
 void	*one_philo(void *data)
 {
 	t_philo	*ph;

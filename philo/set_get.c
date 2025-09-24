@@ -1,40 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_get.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/24 17:53:01 by arvardan          #+#    #+#             */
+/*   Updated: 2025/09/24 18:33:12 by arvardan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-void    set_bool(pthread_mutex_t *mutex, bool *dst, bool val)
+void	set_bool(pthread_mutex_t *mutex, bool *dst, bool val)
 {
-    pthread_mutex_lock(mutex);
-    *dst = val;
-    pthread_mutex_unlock(mutex);
+	pthread_mutex_lock(mutex);
+	*dst = val;
+	pthread_mutex_unlock(mutex);
 }
 
-bool    get_bool(pthread_mutex_t *mutex, bool *val)
+bool	get_bool(pthread_mutex_t *mutex, bool *val)
 {
-    bool    ret;
+	bool	ret;
 
-    pthread_mutex_lock(mutex);
-    ret = *val;
-    pthread_mutex_unlock(mutex);
-    return (ret);
+	pthread_mutex_lock(mutex);
+	ret = *val;
+	pthread_mutex_unlock(mutex);
+	return (ret);
 }
 
-void    set_long(pthread_mutex_t *mutex, long *dst, long val)
+void	set_long(pthread_mutex_t *mutex, long *dst, long val)
 {
-    pthread_mutex_lock(mutex);
-    *dst = val;
-    pthread_mutex_unlock(mutex);
+	pthread_mutex_lock(mutex);
+	*dst = val;
+	pthread_mutex_unlock(mutex);
 }
 
-long    get_long(pthread_mutex_t *mutex, long *val)
+long	get_long(pthread_mutex_t *mutex, long *val)
 {
-    long    ret;
+	long	ret;
 
-    pthread_mutex_lock(mutex);
-    ret = *val;
-    pthread_mutex_unlock(mutex);
-    return (ret);
+	pthread_mutex_lock(mutex);
+	ret = *val;
+	pthread_mutex_unlock(mutex);
+	return (ret);
 }
 
-bool    sim_finished(t_table *t)
+bool	sim_finished(t_table *t)
 {
-    return (get_bool(&t->table_mutex, &t->end_sim)); 
+	return (get_bool(&t->table_mutex, &t->end_sim));
 }
