@@ -23,9 +23,9 @@
 #include <limits.h>
 #include <stdbool.h>
 
-typedef struct s_table t_table;
-typedef struct s_philo t_philo;
-typedef struct s_fork  t_fork;
+typedef struct s_table	t_table;
+typedef struct s_philo	t_philo;
+typedef struct s_fork	t_fork;
 
 typedef enum e_philo_state
 {
@@ -39,11 +39,11 @@ typedef enum e_philo_state
 
 typedef struct s_fork
 {
-	pthread_mutex_t fork;
+	pthread_mutex_t	fork;
 	int				fork_id;
-} t_fork;
+}	t_fork;
 
-typedef struct s_table
+typedef struct	s_table
 {
     int					philo_count;
 	long				time_to_die;
@@ -72,36 +72,27 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	pthread_mutex_t	philo_mutex;
 	t_table			*table;
-} t_philo;
+}	t_philo;
 
-//utils
 unsigned long long	real_time(void);
 long				ft_atol(const char *str);
 void				write_state(t_philo_state s, t_philo *ph);
 void				ft_usleep(long usec, t_table *table);
 void				free_all(t_table *t);
-
-//init
-void    init_all(t_table *t);
-
-//set and get
-void    set_bool(pthread_mutex_t *mutex, bool *dst, bool val);
-bool    get_bool(pthread_mutex_t *mutex, bool *val);
-void    set_long(pthread_mutex_t *mutex, long *dst, long val);
-long    get_long(pthread_mutex_t *mutex, long *val);
-bool    sim_finished(t_table *t);
-
-//simulation
-void    *monitoring(void *data);
-void	start_dinner(t_table *table);
-void    *one_philo(void *data);
-void	*routine(void *data);
-void	thinking(t_philo *p, bool val);
-
-//sync
-void    spinlock(t_table *table);
-bool    all_running(pthread_mutex_t *mutex, long *th, long ph_nbr);
-void    increase_count(pthread_mutex_t *mutex, long *val);
-void    sync_philos(t_philo *p);
+void				init_all(t_table *t);
+void				set_bool(pthread_mutex_t *mutex, bool *dst, bool val);
+bool				get_bool(pthread_mutex_t *mutex, bool *val);
+void				set_long(pthread_mutex_t *mutex, long *dst, long val);
+long				get_long(pthread_mutex_t *mutex, long *val);
+bool				sim_finished(t_table *t);
+void				*monitoring(void *data);
+void				start_dinner(t_table *table);
+void				*one_philo(void *data);
+void				*routine(void *data);
+void				thinking(t_philo *p, bool val);
+void				spinlock(t_table *table);
+bool				all_running(pthread_mutex_t *mutex, long *th, long ph_nbr);
+void				increase_count(pthread_mutex_t *mutex, long *val);
+void				sync_philos(t_philo *p);
 
 #endif

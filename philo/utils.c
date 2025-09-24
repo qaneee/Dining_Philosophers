@@ -1,15 +1,15 @@
 #include "philo.h"
 
-unsigned long long    real_time(void)
+unsigned long long	real_time(void)
 {
-    struct timeval 	tv;
+    struct timeval	tv;
     
-    gettimeofday(&tv, NULL);
+	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 void	write_state(t_philo_state s, t_philo *ph)
 {
-	t_table             *t;
+	t_table				*t;
 	unsigned long long	t_passed;
 
 	t = ph->table;
@@ -24,16 +24,16 @@ void	write_state(t_philo_state s, t_philo *ph)
 	else if (s == THINKING && !sim_finished(t))
 		printf("[%lld] %d %s\n", t_passed, ph->philo_id, T_MSG);
 	else if (s == SLEEPING && !sim_finished(t))
-		printf("[%lld] %d %s\n", t_passed, ph->philo_id, S_MSG);
+	printf("[%lld] %d %s\n", t_passed, ph->philo_id, S_MSG);
 	else if (s == DIED)
-		printf("[%lld] %d %s\n", t_passed, ph->philo_id, D_MSG);
+	printf("[%lld] %d %s\n", t_passed, ph->philo_id, D_MSG);
 	pthread_mutex_unlock(&t->write_mutex);
 }
 
 void	ft_usleep(long usec, t_table *table)
 {
-	unsigned long long start;
-	unsigned long long assign;
+	unsigned long long	start;
+	unsigned long long	assign;
 
 	start = real_time();
 	assign = (unsigned long long)usec;
@@ -45,7 +45,7 @@ void	ft_usleep(long usec, t_table *table)
 
 void	free_all(t_table *t)
 {
-	t_philo *p;
+	t_philo	*p;
 	int		i;
 
 	i = 0;
@@ -60,16 +60,16 @@ void	free_all(t_table *t)
 	free(t->forks);
 	free(t->philos);
 }
-void *one_philo(void *data)
+void	*one_philo(void *data)
 {
-    t_philo *ph;
+	t_philo	*ph;
 
-    ph = (t_philo *)data;
-    spinlock(ph->table);
-    set_long(&ph->philo_mutex, &ph->last_meal_time, real_time());
-    increase_count(&ph->table->table_mutex, &ph->table->running_thread_count);
-    write_state(TAKING_F_FORK, ph);
-    while (!sim_finished(ph->table))
-        ft_usleep(200, ph->table);
-    return (NULL);
+	ph = (t_philo *)data;
+	spinlock(ph->table);
+	set_long(&ph->philo_mutex, &ph->last_meal_time, real_time());
+	increase_count(&ph->table->table_mutex, &ph->table->running_thread_count);
+	write_state(TAKING_F_FORK, ph);
+	while (!sim_finished(ph->table))
+		ft_usleep(200, ph->table);
+	return (NULL);
 }

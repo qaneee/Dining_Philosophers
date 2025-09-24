@@ -1,6 +1,6 @@
 #include "philo.h"
 
-static void eating(t_philo *ph)
+static void	eating(t_philo *ph)
 {
 	pthread_mutex_lock(&ph->first_fork->fork);
 	write_state(TAKING_F_FORK, ph);
@@ -16,7 +16,7 @@ static void eating(t_philo *ph)
 	pthread_mutex_unlock(&ph->second_fork->fork);
 }
 
-void thinking(t_philo *p, bool val)
+void	thinking(t_philo *p, bool val)
 {
 	long	t_eat;
 	long	t_sleep;
@@ -34,9 +34,9 @@ void thinking(t_philo *p, bool val)
 	ft_usleep(t_think * 0.42, p->table);
 }
 
-void *routine(void *data)
+void	*routine(void *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)data;
 	spinlock(philo->table);
@@ -46,7 +46,6 @@ void *routine(void *data)
 		&philo->table->running_thread_count
 	);
 	sync_philos(philo);
-	
 	while (!sim_finished(philo->table))
 	{
 		if (get_bool(&philo->philo_mutex, &philo->is_full))
@@ -58,51 +57,51 @@ void *routine(void *data)
 	}
 	return (NULL);
 }
-static void create_threads(t_table *t)
+static void	create_threads(t_table *t)
 {
-    int i;
+    int	i;
 
-    if (t->philo_count == 1)
-    {
-        pthread_create(&t->monitor, NULL, monitoring, t);
-        pthread_create(&t->philos[0].thread_id, NULL, 
+	if (t->philo_count == 1)
+	{
+		pthread_create(&t->monitor, NULL, monitoring, t);
+		pthread_create(&t->philos[0].thread_id, NULL, 
 			one_philo, &t->philos[0]);
-    }
-    else
-    {
-        i = 0;
-        while (i < t->philo_count)
-        {
-            pthread_create(&t->philos[i].thread_id, NULL, 
+	}
+	else
+	{
+		i = 0;
+		while (i < t->philo_count)
+		{
+			pthread_create(&t->philos[i].thread_id, NULL, 
 				routine, &t->philos[i]);
-            i++;
-        }
-        pthread_create(&t->monitor, NULL, monitoring, t);
-    }
+			i++;
+		}
+		pthread_create(&t->monitor, NULL, monitoring, t);
+	}
 }
 
-void start_dinner(t_table *t)
+void	start_dinner(t_table *t)
 {
-    int i;
+    int	i;
 
-    if (t->must_eat == 0)
-        return;
-    t->start_sim = real_time();
-    i = 0;
-    while (i < t->philo_count)
-    {
-        set_long(&t->philos[i].philo_mutex, 
+	if (t->must_eat == 0)
+		return;
+	t->start_sim = real_time();
+	i = 0;
+	while (i < t->philo_count)
+	{
+		set_long(&t->philos[i].philo_mutex, 
 			&t->philos[i].last_meal_time, t->start_sim);
-        i++;
-    }
-    create_threads(t);
-    set_bool(&t->table_mutex, &t->are_threads_created, true);
-    i = 0;
-    while (i < t->philo_count)
-    {
-        pthread_join(t->philos[i].thread_id, NULL);
-        i++;
-    }
-    set_bool(&t->table_mutex, &t->end_sim, true);
-    pthread_join(t->monitor, NULL);
+		i++;
+	}
+	create_threads(t);
+	set_bool(&t->table_mutex, &t->are_threads_created, true);
+	i = 0;
+	while (i < t->philo_count)
+	{
+		pthread_join(t->philos[i].thread_id, NULL);
+		i++;
+	}
+	set_bool(&t->table_mutex, &t->end_sim, true);
+	pthread_join(t->monitor, NULL);
 }

@@ -1,6 +1,6 @@
 #include "philo.h"
 
-static void set_forks(t_philo *philo, t_fork *forks, int philo_pos)
+static void	set_forks(t_philo *philo, t_fork *forks, int philo_pos)
 {
 	int	philo_num;
 
@@ -14,7 +14,7 @@ static void set_forks(t_philo *philo, t_fork *forks, int philo_pos)
 	}
 }
 
-static void init_philo(t_table *t)
+static void	init_philo(t_table *t)
 {
 	int		i;
 	t_philo	*philo;
@@ -29,12 +29,12 @@ static void init_philo(t_table *t)
 		philo->table = t;
 		pthread_mutex_init(&philo->philo_mutex, NULL);
 		set_forks(philo, t->forks, i);
-        philo->last_meal_time = 0;
+		philo->last_meal_time = 0;
 		i++;
 	}
 }
 
-void    init_all(t_table *t)
+void	init_all(t_table *t)
 {
 	int	i;
 

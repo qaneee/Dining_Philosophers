@@ -9,7 +9,6 @@ static bool philo_died(t_philo *p)
 
     if (get_bool(&p->philo_mutex, &p->is_full))
         return (false);
-    
     last_meal = get_long(&p->philo_mutex, &p->last_meal_time);
     current_time = real_time();
     time_passed = current_time - last_meal;
@@ -66,7 +65,7 @@ static bool monitoring_helper(t_table *table)
     return (false);
 }
 
-void *monitoring(void *data)
+void    *monitoring(void *data)
 {
     t_table *table;
 

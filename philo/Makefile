@@ -1,6 +1,6 @@
 CC = cc
 NAME = philo
-CFLAGS = -Wall -Wextra -Werror -g3 -pthread
+CFLAGS = -Wall -Wextra -Werror #-g3 -pthread
 
 SRC = main.c ft_atol.c init.c \
 	  utils.c monitor.c set_get.c \
@@ -14,7 +14,6 @@ GREEN = \033[0;32m
 YELLOW = \033[0;33m
 BLUE = \033[0;34m
 RESET = \033[0m
-
 
 all: $(NAME)
 
