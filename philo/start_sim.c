@@ -6,7 +6,7 @@
 /*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:53:10 by arvardan          #+#    #+#             */
-/*   Updated: 2025/09/24 19:25:42 by arvardan         ###   ########.fr       */
+/*   Updated: 2025/09/25 11:46:38 by arvardan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	eating(t_philo *ph)
 	ph->meals_eaten++;
 	write_state(EATING, ph);
 	ft_usleep(ph->table->time_to_eat, ph->table);
-	if (ph->table->must_eat > 0 && ph->meals_eaten == ph->table->must_eat)
+	if (ph->table->must_eat > 0 && ph->meals_eaten >= ph->table->must_eat)
 		set_bool(&ph->philo_mutex, &ph->is_full, true);
 	pthread_mutex_unlock(&ph->first_fork->fork);
 	pthread_mutex_unlock(&ph->second_fork->fork);
@@ -58,11 +58,15 @@ void	*routine(void *data)
 	sync_philos(philo);
 	while (!sim_finished(philo->table))
 	{
-		if (get_bool(&philo->philo_mutex, &philo->is_full))
-			break ;
+		/*if (get_bool(&philo->philo_mutex, &philo->is_full))
+			break ;*/
 		eating(philo);
+		if (sim_finished(philo->table))
+			break ;
 		write_state(SLEEPING, philo);
 		ft_usleep(philo->table->time_to_sleep, philo->table);
+		if (sim_finished(philo->table))
+			break ;
 		thinking(philo, false);
 	}
 	return (NULL);

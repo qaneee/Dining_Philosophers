@@ -6,7 +6,7 @@
 /*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:52:54 by arvardan          #+#    #+#             */
-/*   Updated: 2025/09/24 19:42:33 by arvardan         ###   ########.fr       */
+/*   Updated: 2025/09/25 11:32:11 by arvardan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_table
 typedef struct s_philo
 {
 	int				philo_id;
-	int				meals_eaten;
+	long				meals_eaten;
 	bool			is_full;
 	t_fork			*first_fork;		
 	t_fork			*second_fork;

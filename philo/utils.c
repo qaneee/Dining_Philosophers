@@ -6,7 +6,7 @@
 /*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:53:24 by arvardan          #+#    #+#             */
-/*   Updated: 2025/09/24 19:29:54 by arvardan         ###   ########.fr       */
+/*   Updated: 2025/09/25 11:42:55 by arvardan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ void	write_state(t_philo_state s, t_philo *ph)
 	unsigned long long	t_passed;
 
 	t = ph->table;
-	if (s != DIED && get_bool(&ph->philo_mutex, &ph->is_full))
-		return ;
 	t_passed = real_time() - t->start_sim;
 	pthread_mutex_lock(&t->write_mutex);
+	if (sim_finished(t) && s != DIED/* && get_bool(&ph->philo_mutex, &ph->is_full)*/)
+	{
+		pthread_mutex_unlock(&t->write_mutex);
+		return ;
+	}
 	if ((s == TAKING_F_FORK || s == TAKING_S_FORK) && !sim_finished(t))
 		printf("[%lld] %d %s\n", t_passed, ph->philo_id, F_MSG);
 	else if (s == EATING && !sim_finished(t))

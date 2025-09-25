@@ -6,13 +6,13 @@
 #    By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/24 17:52:39 by arvardan          #+#    #+#              #
-#    Updated: 2025/09/24 17:52:41 by arvardan         ###   ########.fr        #
+#    Updated: 2025/09/25 10:11:05 by arvardan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = philo
-CFLAGS = -Wall -Wextra -Werror #-g3 -pthread
+CFLAGS = -Wall -Wextra -Werror -g3
 
 SRC = main.c ft_atol.c init.c \
 	  utils.c monitor.c set_get.c \
