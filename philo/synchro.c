@@ -6,7 +6,7 @@
 /*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:53:18 by arvardan          #+#    #+#             */
-/*   Updated: 2025/09/24 18:37:14 by arvardan         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:21:23 by arvardan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	spinlock(t_table *table)
 {
 	while (!get_bool(&table->table_mutex, &table->are_threads_created))
-		;
+		usleep(1000);
 }
 
 bool	all_running(pthread_mutex_t *mutex, long *th, long ph_nbr)
