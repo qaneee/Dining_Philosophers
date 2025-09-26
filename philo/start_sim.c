@@ -6,7 +6,7 @@
 /*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:53:10 by arvardan          #+#    #+#             */
-/*   Updated: 2025/09/25 11:46:38 by arvardan         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:40:03 by arvardan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	*routine(void *data)
 	sync_philos(philo);
 	while (!sim_finished(philo->table))
 	{
-		/*if (get_bool(&philo->philo_mutex, &philo->is_full))
-			break ;*/
 		eating(philo);
 		if (sim_finished(philo->table))
 			break ;

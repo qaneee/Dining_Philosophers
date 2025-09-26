@@ -6,7 +6,7 @@
 /*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:53:24 by arvardan          #+#    #+#             */
-/*   Updated: 2025/09/25 11:42:55 by arvardan         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:41:12 by arvardan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	write_state(t_philo_state s, t_philo *ph)
 	t = ph->table;
 	t_passed = real_time() - t->start_sim;
 	pthread_mutex_lock(&t->write_mutex);
-	if (sim_finished(t) && s != DIED/* && get_bool(&ph->philo_mutex, &ph->is_full)*/)
+	if (sim_finished(t) && s != DIED)
 	{
 		pthread_mutex_unlock(&t->write_mutex);
 		return ;
