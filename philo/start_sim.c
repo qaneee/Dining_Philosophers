@@ -6,7 +6,7 @@
 /*   By: arvardan <arvardan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 17:53:10 by arvardan          #+#    #+#             */
-/*   Updated: 2025/09/26 16:40:03 by arvardan         ###   ########.fr       */
+/*   Updated: 2025/09/28 15:34:44 by arvardan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	thinking(t_philo *p, bool val)
 	t_think = t_eat * 2 - t_sleep;
 	if (t_think < 0)
 		t_think = 0;
-	ft_usleep(t_think * 0.42, p->table);
+	ft_usleep(t_think * 0.5, p->table);
 }
 
 void	*routine(void *data)
